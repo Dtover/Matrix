@@ -1,4 +1,7 @@
 lastgame  = "DigitHuaRong"
+start_time = 0
+end_time = 0
+local istiming = false
 local level = level_value
 local side_length = 450
 local frame = {
@@ -43,6 +46,7 @@ local puzzle_res = {
 	}
 }
 step_number = step_number
+start_time = love.timer.getTime()
 function love.load()
 	puzzle_value = {
 		{
@@ -176,6 +180,9 @@ function love.keypressed(key)
 	if key == "l" then
 		moveBox("x", 1)
 	end
+	if not istiming then
+		istiming = true
+	end
 end
 
 function love.draw()
@@ -204,8 +211,15 @@ function love.draw()
 		lg.setLineWidth(5)
 		lg.rectangle("line", selectBoxPos.x, selectBoxPos.y, side_length / level, side_length / level, 5)
 		lg.setColor(1, 1, 1)
-		SetFont(50)
-		lg.print("Steps: "..tostring(step_number), frame.x, frame.y - 100)
+		timer = tostring(love.timer.getTime() - start_time)
+		SetFont(30)
+		lg.printf("Steps: "..tostring(step_number), frame.x, frame.y - 50, side_length, "left")
+		if istiming then
+			end_time = string.sub(tostring(love.timer.getTime() - start_time), 1, 4)
+		else
+			end_time = 0
+		end
+		lg.printf("Time: "..end_time, frame.x, frame.y - 50, side_length, "right")
 	else
 		SwitchScene("FinPage")
 	end

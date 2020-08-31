@@ -1,4 +1,5 @@
 lastgame = lastgame
+end_time = end_time
 function love.load()
 	side_length = 450
 	frame = {
@@ -21,6 +22,6 @@ function love.draw()
 	lg.rectangle("fill", frame.x - 10, frame.y - 10, side_length + 20, side_length + 20, 20)
 	SetFont(30)
 	lg.setColor(0, 0, 0)
-	lg.printf(step_number.." steps !", 0, lgh / 2 - 30, lgw, "center")
-	lg.printf("Press R to restart", 0, lgh / 2 + 5, lgw, "center")
+	lg.printf(step_number.." steps in "..end_time.. " seconds !", frame.x, lgh / 2 - 30, side_length, "center")
+	lg.printf("Press R to restart", frame.x, lgh / 2 + 5, side_length, "center")
 end

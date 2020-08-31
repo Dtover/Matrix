@@ -4,7 +4,9 @@ lgh = lg.getHeight()
 level_value = 3
 step_number = 0
 lastgame = nil
+end_time = 0
 
+require("string")
 require("GUItools/font")
 require("GUItools/button")
 require("GUItools/level")
