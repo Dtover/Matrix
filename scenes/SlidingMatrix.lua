@@ -73,6 +73,7 @@ end
 -- Shuffle the matrix
 function ShuffleMatrix()
 	math.randomseed(os.time())
+	-- 20 steps shuffle
 	for i = 1, 20 do
 		a = math.random(0,1)
 		b = math.random(0,1)
@@ -116,9 +117,8 @@ end
 
 -- Box movement
 function moveBox(axis, direction)
-	count_value[axis] = count_value[axis] + 1 * direction
-	temp = count_value[axis] % level
-	selectBoxPos[axis] = frame[axis] + temp * side_length / level
+	count_value[axis] = (count_value[axis] + 1 * direction) % level
+	selectBoxPos[axis] = frame[axis] + count_value[axis] * side_length / level
 end
 
 -- Box width digit movement
@@ -221,11 +221,5 @@ function love.draw()
 		lg.print("Steps: "..tostring(step_number), frame.x, frame.y - 100)
 	else
 		SwitchScene("FinPage")
-		--lg.setColor(1, 1, 1)
-		--lg.rectangle("fill", frame.x - 10, frame.y - 10, side_length + 20, side_length + 20, 20)
-		--SetFont(28)
-		--lg.setColor(0, 0, 0)
-		--lg.printf("Congratulations !", 0, lgh / 2 - 20, lgw, "center")
-		--lg.printf("Press R to restart !", 0, lgh / 2 + 5, lgw, "center")
 	end
 end

@@ -8,7 +8,7 @@ end
 
 function love.keypressed(key)
 	if key == "r" then
-		SwitchScene("StartGame")
+		SwitchScene("Menu")
 		step_number = 0
 	elseif key == "escape" then
 		SwitchScene("Menu")
