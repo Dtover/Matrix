@@ -1,10 +1,12 @@
+-- global variable
 lastgame = "SlidingMatrix"
-start_time = 0
 end_time = 0
+step_number = 0
+
+-- local variable
 local istiming = false
 local level = level_value
 local side_length = 450
--- game end control variable
 local puzzle_res = {
 	{
 		{1, 2},
@@ -42,7 +44,6 @@ local count_value = {
 	x = 0,
 	y = 0
 }
-step_number = step_number
 
 function love.load()
 	puzzle_value = {
@@ -117,6 +118,11 @@ function CheckisCorrect()
 end
 
 function love.update()
+	if istiming then
+		end_time = string.sub(tostring(love.timer.getTime() - start_time), 1, 4)
+	else
+		end_time = "0.00"
+	end
 end
 
 -- Box movement
@@ -195,6 +201,7 @@ function love.keypressed(key)
 		moveDigit("x", -1)
 		step_number = step_number + 1
 	end
+	-- Start timing when any key was pressed
 	if not istiming then
 		start_time = love.timer.getTime()
 		istiming = true
@@ -202,7 +209,7 @@ function love.keypressed(key)
 end
 
 function love.draw()
-	if CheckisCorrect() == false then
+	if not CheckisCorrect() then
 		lg.setLineWidth(20)
 		lg.setColor(1, 1, 1)
 		lg.rectangle("line", frame.x, frame.y, side_length, side_length, 10)
@@ -217,9 +224,11 @@ function love.draw()
 			x = (i - 1) * side_length / level
 			for j = 1, level do
 				y = (j - 1) * side_length / level
-				lg.printf(puzzle_value[level - 1][j][i], frame.x + x, frame.y + y + font_height / 2 - 10, side_length / level, "center")
+				lg.printf(puzzle_value[level - 1][j][i],
+					frame.x + x, frame.y + y + font_height / 2 - 10, side_length / level, "center")
 			end
 		end
+
 		-- Draw the select box
 		lg.setColor(0, 0, 0)
 		lg.setLineWidth(5)
@@ -227,11 +236,6 @@ function love.draw()
 		lg.setColor(1, 1, 1)
 		SetFont(30)
 		lg.printf("Steps: "..tostring(step_number), frame.x, frame.y - 50, side_length, "left")
-		if istiming then
-			end_time = string.sub(tostring(love.timer.getTime() - start_time), 1, 4)
-		else
-			end_time = 0
-		end
 		lg.printf("Time: "..end_time, frame.x, frame.y - 50, side_length, "right")
 	else
 		SwitchScene("FinPage")

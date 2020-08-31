@@ -1,6 +1,10 @@
+-- global variables
 lastgame  = "DigitHuaRong"
 start_time = 0
 end_time = 0
+step_number = 0
+
+-- local variables
 local istiming = false
 local level = level_value
 local side_length = 450
@@ -16,7 +20,6 @@ local selectBoxPos = {
 	x = frame.x,
 	y = frame.y
 }
--- This table help to locate the box position make its movement loop in a line
 local count_value = {
 	x = 0,
 	y = 0
@@ -45,8 +48,7 @@ local puzzle_res = {
 		{21, 22, 23, 24,  0},
 	}
 }
-step_number = step_number
-start_time = love.timer.getTime()
+
 function love.load()
 	puzzle_value = {
 		{
@@ -74,6 +76,14 @@ function love.load()
 	}
 	while CheckisCorrect() do
 		Shuffle()
+	end
+end
+
+function love.update()
+	if istiming then
+		end_time = string.sub(tostring(love.timer.getTime() - start_time), 1, 4)
+	else
+		end_time = "0.00"
 	end
 end
 
@@ -181,6 +191,7 @@ function love.keypressed(key)
 		moveBox("x", 1)
 	end
 	if not istiming then
+		start_time = love.timer.getTime()
 		istiming = true
 	end
 end
@@ -214,11 +225,6 @@ function love.draw()
 		timer = tostring(love.timer.getTime() - start_time)
 		SetFont(30)
 		lg.printf("Steps: "..tostring(step_number), frame.x, frame.y - 50, side_length, "left")
-		if istiming then
-			end_time = string.sub(tostring(love.timer.getTime() - start_time), 1, 4)
-		else
-			end_time = 0
-		end
 		lg.printf("Time: "..end_time, frame.x, frame.y - 50, side_length, "right")
 	else
 		SwitchScene("FinPage")

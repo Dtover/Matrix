@@ -1,6 +1,6 @@
-lastgame = lastgame
-end_time = end_time
 function love.load()
+	lastgame = lastgame
+	end_time = end_time
 	side_length = 450
 	frame = {
 		x = (lgw - side_length) / 2,
