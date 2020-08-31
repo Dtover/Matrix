@@ -1,3 +1,4 @@
+lastgame = lastgame
 function love.load()
 	side_length = 450
 	frame = {
@@ -8,7 +9,7 @@ end
 
 function love.keypressed(key)
 	if key == "r" then
-		SwitchScene("Menu")
+		SwitchScene(lastgame)
 		step_number = 0
 	elseif key == "escape" then
 		SwitchScene("Menu")

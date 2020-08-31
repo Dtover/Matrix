@@ -1,3 +1,4 @@
+lastgame  = "DigitHuaRong"
 local level = level_value
 local side_length = 450
 local frame = {
@@ -41,7 +42,7 @@ local puzzle_res = {
 		{21, 22, 23, 24,  0},
 	}
 }
-step_number = 0
+step_number = step_number
 function love.load()
 	puzzle_value = {
 		{
@@ -67,7 +68,9 @@ function love.load()
 			{21, 22, 23, 24,  0},
 		}
 	}
-	Shuffle()
+	while CheckisCorrect() do
+		Shuffle()
+	end
 end
 
 function moveBox(axis, direction)
@@ -89,7 +92,7 @@ end
 function Shuffle()
 	math.randomseed(os.time())
 	local i = 0
-	while (i < 20) do
+	while (i < level * 10) do
 		z = GetZeroPos()
 		rtemp = math.random(1, 2)
 		rv = math.random(1, level)

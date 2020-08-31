@@ -3,6 +3,7 @@ lgw = lg.getWidth()
 lgh = lg.getHeight()
 level_value = 3
 step_number = 0
+lastgame = nil
 
 require("GUItools/font")
 require("GUItools/button")

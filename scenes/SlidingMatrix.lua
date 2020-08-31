@@ -1,3 +1,4 @@
+lastgame = "SlidingMatrix"
 local level = level_value
 local side_length = 450
 -- game end control variable
